@@ -160,7 +160,7 @@ struct TextModifier: ViewModifier {
 }
 
 struct StaleModifier: ViewModifier {
-    @EnvironmentObject var viewModel: ViewModel
+    @Environment(ViewModel.self) private var viewModel
     func body(content: Content) -> some View {
         return content
             .frame(minWidth: 0, maxWidth: .infinity)

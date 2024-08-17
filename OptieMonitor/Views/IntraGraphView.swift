@@ -9,20 +9,20 @@ import Charts
 import SwiftUI
 
 struct IntraGraphView: View {
-    @EnvironmentObject var model: ViewModel
-    @Environment(\.dismiss) var dismiss
+    @Environment(ViewModel.self) private var viewModel
+   @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationView {
             Chart {
-                ForEach(model.intraday.grafiekWaarden.filter { $0.type != "Index" }, id: \.self) { element in
+                ForEach(viewModel.intraday.grafiekWaarden.filter { $0.type != "Index" }, id: \.self) { element in
                     BarMark(
                         x: .value("Uur", element.datumTijd),
                         y: .value("Mutatie in €", element.waarde)
                     )
                     .foregroundStyle(by: .value("Type Color", element.type))
                 }
-                ForEach(model.intraday.grafiekWaarden.filter { $0.type == "Index" }, id: \.self) { element in
+                ForEach(viewModel.intraday.grafiekWaarden.filter { $0.type == "Index" }, id: \.self) { element in
                     LineMark(
                         x: .value("Uur", element.datumTijd),
                         y: .value("Index", element.waarde)
@@ -40,12 +40,12 @@ struct IntraGraphView: View {
                 }
             }
             .chartYAxis {
-                AxisMarks(preset: .aligned, position: .leading, values: model.intraday.grafiekAssen["Euro"] ?? [0.0]) { _ in
+                AxisMarks(preset: .aligned, position: .leading, values: viewModel.intraday.grafiekAssen["Euro"] ?? [0.0]) { _ in
                     AxisGridLine()
                     AxisTick()
                     AxisValueLabel(format: .currency(code: "EUR").precision(.fractionLength(0)), centered: false)
                 }
-                AxisMarks(preset: .aligned, position: .trailing, values: model.intraday.grafiekAssen["Index"] ?? [0.0]) { _ in
+                AxisMarks(preset: .aligned, position: .trailing, values: viewModel.intraday.grafiekAssen["Index"] ?? [0.0]) { _ in
                     AxisTick()
                     AxisValueLabel()
                 }

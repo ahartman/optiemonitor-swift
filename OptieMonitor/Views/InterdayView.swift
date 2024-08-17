@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct InterdayView: View {
-    @EnvironmentObject var model: ViewModel
+    @Environment(ViewModel.self) private var viewModel
     @State var showGraphView = false
 
     var body: some View {
         NavigationView {
             List {
                 Section(header: HeaderView(),
-                        footer: FooterView(footerLines: model.interday.footer)) {
-                    ForEach(model.interday.list, id: \.id) { line in
+                        footer: FooterView(footerLines: viewModel.interday.footer)) {
+                    ForEach(viewModel.interday.list, id: \.id) { line in
                         RowView(line: line)
                     }
                 }
@@ -33,12 +33,5 @@ struct InterdayView: View {
         .sheet(isPresented: $showGraphView) {
             InterGraphView()
         }
-    }
-}
-
-struct InterdayView_Previews: PreviewProvider {
-    static let viewModel = ViewModel()
-    static var previews: some View {
-        InterdayView().environmentObject(viewModel)
     }
 }

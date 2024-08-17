@@ -9,20 +9,20 @@ import Charts
 import SwiftUI
 
 struct InterGraphView: View {
-    @EnvironmentObject var model: ViewModel
+    @Environment(ViewModel.self) private var viewModel
     @Environment(\.dismiss) var dismiss
         
     var body: some View {
         NavigationView {
             Chart {
-                ForEach(model.interday.grafiekWaarden.filter { $0.type != "Index" }, id: \.self) { element in
+                ForEach(viewModel.interday.grafiekWaarden.filter { $0.type != "Index" }, id: \.self) { element in
                     BarMark(
                         x: .value("Datum", element.datumTijd),
                         y: .value("Waarde in €", element.waarde)
                     )
                     .foregroundStyle(by: .value("Type Color", element.type))
                 }
-                ForEach(model.interday.grafiekWaarden.filter { $0.type == "Index" }, id: \.self) { element in
+                ForEach(viewModel.interday.grafiekWaarden.filter { $0.type == "Index" }, id: \.self) { element in
                     LineMark(
                         x: .value("Uur", element.datumTijd),
                         y: .value("Index", element.waarde)
@@ -39,11 +39,11 @@ struct InterGraphView: View {
             .chartXAxisLabel("Datum", position: .bottom)
             
             .chartYAxis {
-                AxisMarks(preset: .aligned, position: .leading, values: model.interday.grafiekAssen["Euro"] ?? [0.0]) { _ in
+                AxisMarks(preset: .aligned, position: .leading, values: viewModel.interday.grafiekAssen["Euro"] ?? [0.0]) { _ in
                     AxisGridLine()
                     AxisValueLabel(format: .currency(code: "EUR").precision(.fractionLength(0)))
                 }
-                AxisMarks(preset: .aligned, position: .trailing, values: model.interday.grafiekAssen["Index"] ?? [0.0]) { _ in
+                AxisMarks(preset: .aligned, position: .trailing, values: viewModel.interday.grafiekAssen["Index"] ?? [0.0]) { _ in
                     AxisGridLine()
                     AxisValueLabel()
                 }
@@ -63,8 +63,9 @@ struct InterGraphView: View {
         }
     }
     
+    @MainActor
     func xValues()-> [Date] {
-        return model.interday.grafiekWaarden.filter({$0.type == "Index"}).map({$0.datumTijd})
+        return viewModel.interday.grafiekWaarden.filter({$0.type == "Index"}).map({$0.datumTijd})
     }
 
     func xValue(value: Date) -> String {

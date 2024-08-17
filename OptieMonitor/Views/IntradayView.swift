@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct IntradayView: View {
-    @EnvironmentObject var model: ViewModel
+    //@Environment(ViewModel.self) private var model
+    @Bindable var viewModel: ViewModel
     @State private var showGraphSheet = false
     @Environment(\.scenePhase) var scenePhase
 
@@ -18,8 +19,8 @@ struct IntradayView: View {
                 List {
                     Section(
                         header: HeaderView(),
-                        footer: FooterView(footerLines: model.intraday.footer)
-                    ) { ForEach(model.intraday.list, id: \.id) {
+                        footer: FooterView(footerLines: viewModel.intraday.footer)
+                    ) { ForEach(viewModel.intraday.list, id: \.id) {
                         line in
                         RowView(line: line)
                     }
@@ -34,12 +35,12 @@ struct IntradayView: View {
                         { Image(systemName: "chart.bar") },
                     trailing:
                     Button(action: { Task {
-                        await model.getJsonData(action: "cleanOrder")
+                        await viewModel.getJsonData(action: "cleanOrder")
                     }})
                         { Image(systemName: "arrow.clockwise") }
                 )
                 .refreshable {
-                    await model.getJsonData(action: "currentOrder")
+                    await viewModel.getJsonData(action: "currentOrder")
                 }
             }
         }
@@ -47,15 +48,15 @@ struct IntradayView: View {
             if phase == .active {
                 Task {
                     print("IntradayView:50")
-                    await model.getJsonData(action: "currentOrder")
+                    await viewModel.getJsonData(action: "currentOrder")
                 }
             } else {
                 print("ScenePhase: unexpected state")
             }
         }
-        .alert(isPresented: $model.isMessage) {
+        .alert(isPresented: $viewModel.isMessage) {
             Alert(title: Text("AEX"),
-                  message: Text(model.message ?? ""),
+                  message: Text(viewModel.message ?? ""),
                   dismissButton: .default(Text("OK")))
         }
         .sheet(isPresented: $showGraphSheet) {

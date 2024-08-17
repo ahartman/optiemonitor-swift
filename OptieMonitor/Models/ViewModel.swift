@@ -8,22 +8,21 @@
 import SwiftUI
 
 @MainActor
-class ViewModel: ObservableObject {
-    @Published var intraday = DisplayData()
-    @Published var interday = DisplayData()
-    @Published var intradayGraph = [GraphLine]()
-    @Published var intradayIndex = [GraphLine]()
-    @Published var interdayGraph = [GraphLine]()
-    @Published var isMessage: Bool = false
-    @Published var notificationSet = NotificationSetting()
+@Observable class ViewModel {
+    var intraday = DisplayData()
+    var interday = DisplayData()
+    var intradayGraph = [GraphLine]()
+    var intradayIndex = [GraphLine]()
+    var interdayGraph = [GraphLine]()
+    var isMessage: Bool = false
+    var notificationSet = NotificationSetting()
     { didSet {
         notificationSetStale = true
     }}
+
     var message: String?
     { didSet {
-        if message != nil {
-            isMessage = true
-        }
+        if message != nil { isMessage = true }
     }}
 
     init() {

@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct OptieMonitorApp: App {
-    var viewModel = ViewModel()
+    @State private var viewModel = ViewModel()
 
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     @StateObject var notificationCenter = NotificationCenter()
@@ -18,7 +18,7 @@ struct OptieMonitorApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                IntradayView()
+                IntradayView(viewModel: viewModel)
                     .tabItem {
                         Image(systemName: "calendar.circle")
                         Text("Intraday")
@@ -28,13 +28,13 @@ struct OptieMonitorApp: App {
                         Image(systemName: "calendar.circle.fill")
                         Text("Interday")
                     }
-                SettingsView()
+                SettingsView(viewModel: viewModel)
                     .tabItem {
                         Image(systemName: "gear")
                         Text("Notificaties")
                     }
             }
-            .environmentObject(viewModel)
+            .environment(viewModel)
         }
     }
 }
