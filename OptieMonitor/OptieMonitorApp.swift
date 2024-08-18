@@ -17,24 +17,29 @@ struct OptieMonitorApp: App {
 
     var body: some Scene {
         WindowGroup {
-            TabView {
-                IntradayView(viewModel: viewModel)
-                    .tabItem {
-                        Image(systemName: "calendar.circle")
-                        Text("Intraday")
-                    }
-                InterdayView()
-                    .tabItem {
-                        Image(systemName: "calendar.circle.fill")
-                        Text("Interday")
-                    }
-                SettingsView(viewModel: viewModel)
-                    .tabItem {
-                        Image(systemName: "gear")
-                        Text("Notificaties")
-                    }
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                iPadView(viewModel: viewModel)
+                    .environment(viewModel)
+            } else {
+                TabView {
+                    IntradayView(viewModel: viewModel)
+                        .tabItem {
+                            Image(systemName: "calendar.circle")
+                            Text("Intraday")
+                        }
+                    InterdayView()
+                        .tabItem {
+                            Image(systemName: "calendar.circle.fill")
+                            Text("Interday")
+                        }
+                    SettingsView(viewModel: viewModel)
+                        .tabItem {
+                            Image(systemName: "gear")
+                            Text("Notificaties")
+                        }
+                }
+                .environment(viewModel)
             }
-            .environment(viewModel)
         }
     }
 }

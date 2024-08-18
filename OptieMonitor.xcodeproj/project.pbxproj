@@ -19,6 +19,7 @@
 		E830057325480CB500B2CA56 /* IntradayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E830056B25480CB500B2CA56 /* IntradayView.swift */; };
 		E83005812548138100B2CA56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E83005802548138100B2CA56 /* Assets.xcassets */; };
 		E8434413297A7C4F00929E17 /* IntraGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8434412297A7C4F00929E17 /* IntraGraphView.swift */; };
+		E8A7F6492C72098500F3F587 /* iPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A7F6482C72098500F3F587 /* iPadView.swift */; };
 		E8B66D65266A067C00C071CE /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B66D64266A067C00C071CE /* FooterView.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,7 @@
 		E830056B25480CB500B2CA56 /* IntradayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntradayView.swift; sourceTree = "<group>"; };
 		E83005802548138100B2CA56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E8434412297A7C4F00929E17 /* IntraGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntraGraphView.swift; sourceTree = "<group>"; };
+		E8A7F6482C72098500F3F587 /* iPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadView.swift; sourceTree = "<group>"; };
 		E8B66D64266A067C00C071CE /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 				E830056925480CB500B2CA56 /* RowView.swift */,
 				E8B66D64266A067C00C071CE /* FooterView.swift */,
 				E830056A25480CB500B2CA56 /* SettingsView.swift */,
+				E8A7F6482C72098500F3F587 /* iPadView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				E830055F25480C5400B2CA56 /* Model.swift in Sources */,
 				E830056D25480CB500B2CA56 /* HeaderView.swift in Sources */,
 				E830056025480C5400B2CA56 /* ViewModel.swift in Sources */,
+				E8A7F6492C72098500F3F587 /* iPadView.swift in Sources */,
 				E830052D2548066400B2CA56 /* OptieMonitorApp.swift in Sources */,
 				E830057325480CB500B2CA56 /* IntradayView.swift in Sources */,
 				E8434413297A7C4F00929E17 /* IntraGraphView.swift in Sources */,

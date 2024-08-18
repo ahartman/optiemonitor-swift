@@ -41,14 +41,14 @@ struct IntradayView: View {
                 await viewModel.getJsonData(action: "currentOrder")
             }
         }
-        .onChange(of: scenePhase) { phase in
+        .onChange(of: scenePhase) { _, phase in
             if phase == .active {
                 Task {
                     print("from IntradayView")
                     await viewModel.getJsonData(action: "currentOrder")
                 }
             } else {
-                print("ScenePhase: unexpected state")
+                print("ScenePhase: \(phase)")
             }
         }
         .alert(isPresented: $viewModel.isMessage) {
