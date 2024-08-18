@@ -37,11 +37,3 @@ struct RowView: View {
         }
     }
 }
-
-/*
- struct InterdayRowView_Previews: PreviewProvider {
- static var previews: some View {
- InterdayRowView()
- }
- }
- */

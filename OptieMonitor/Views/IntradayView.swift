@@ -8,46 +8,43 @@
 import SwiftUI
 
 struct IntradayView: View {
-    //@Environment(ViewModel.self) private var model
     @Bindable var viewModel: ViewModel
     @State private var showGraphSheet = false
     @Environment(\.scenePhase) var scenePhase
 
     var body: some View {
         NavigationView {
-            VStack {
-                List {
-                    Section(
-                        header: HeaderView(),
-                        footer: FooterView(footerLines: viewModel.intraday.footer)
-                    ) { ForEach(viewModel.intraday.list, id: \.id) {
-                        line in
-                        RowView(line: line)
-                    }
-                    }
+            List {
+                Section(
+                    header: HeaderView(),
+                    footer: FooterView(footerLines: viewModel.intraday.footer)
+                ) { ForEach(viewModel.intraday.list, id: \.id) {
+                    line in
+                    RowView(line: line)
                 }
-                .listStyle(GroupedListStyle())
-                .environment(\.defaultMinListRowHeight, 10)
-                .navigationBarTitle("Intraday (\(UIApplication.appVersion!))", displayMode: .inline)
-                .navigationBarItems(
-                    leading:
-                    Button(action: { showGraphSheet.toggle() })
-                        { Image(systemName: "chart.bar") },
-                    trailing:
-                    Button(action: { Task {
-                        await viewModel.getJsonData(action: "cleanOrder")
-                    }})
-                        { Image(systemName: "arrow.clockwise") }
-                )
-                .refreshable {
-                    await viewModel.getJsonData(action: "currentOrder")
                 }
+            }
+            .listStyle(GroupedListStyle())
+            .environment(\.defaultMinListRowHeight, 10)
+            .navigationBarTitle("Intraday (\(UIApplication.appVersion!))", displayMode: .inline)
+            .navigationBarItems(
+                leading:
+                Button(action: { showGraphSheet.toggle() })
+                    { Image(systemName: "chart.bar") },
+                trailing:
+                Button(action: { Task {
+                    await viewModel.getJsonData(action: "cleanOrder")
+                }})
+                    { Image(systemName: "arrow.clockwise") }
+            )
+            .refreshable {
+                await viewModel.getJsonData(action: "currentOrder")
             }
         }
         .onChange(of: scenePhase) { phase in
             if phase == .active {
                 Task {
-                    print("IntradayView:50")
+                    print("from IntradayView")
                     await viewModel.getJsonData(action: "currentOrder")
                 }
             } else {

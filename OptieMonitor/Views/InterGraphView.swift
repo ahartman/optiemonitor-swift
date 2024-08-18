@@ -78,11 +78,3 @@ struct InterGraphView: View {
         return d2
     }
 }
-
-/*
- struct InterGraphView_Previews: PreviewProvider {
- static var previews: some View {
- InterGraphView()
- }
- }
- */

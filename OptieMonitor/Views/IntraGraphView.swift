@@ -10,7 +10,7 @@ import SwiftUI
 
 struct IntraGraphView: View {
     @Environment(ViewModel.self) private var viewModel
-   @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationView {
@@ -36,7 +36,6 @@ struct IntraGraphView: View {
                 AxisMarks(values: xValues()) { _ in
                     AxisGridLine()
                     AxisValueLabel(format: .dateTime.hour().locale(Locale(identifier: "en-GB")), centered: false, collisionResolution: .greedy)
-
                 }
             }
             .chartYAxis {
@@ -77,11 +76,3 @@ struct IntraGraphView: View {
         return localHours
     }
 }
-
-/*
- struct IntraGraphView1_Previews: PreviewProvider {
-     static var previews: some View {
-         IntraGraphView()
-     }
- }
- */

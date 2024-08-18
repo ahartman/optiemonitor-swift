@@ -42,11 +42,3 @@ struct FooterRowView: View {
         }
     }
 }
-
-/*
- struct FooterView_Previews: PreviewProvider {
- static var previews: some View {
- FooterView()
- }
- }
- */

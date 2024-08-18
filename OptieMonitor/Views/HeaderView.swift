@@ -38,12 +38,3 @@ struct HeaderView: View {
         }
     }
 }
-
-/*
- struct HeaderView_Previews: PreviewProvider {
- static let viewModel = ViewModel()
- static var previews: some View {
- HeaderView().environmentObject(viewModel)
- }
- }
- */

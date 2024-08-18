@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    //@Environment(ViewModel.self) private var model
     @Bindable var viewModel: ViewModel
     let severityData = ["Alle mutaties", "Onveranderd en negatief", "Laatste mutatie negatief", "Vandaag negatief", "Order negatief", "Geen meldingen"]
     let frequencyData = ["Elk kwartier", "Elk half uur", "Elk uur", "Geen"]
