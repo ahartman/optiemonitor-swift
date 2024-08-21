@@ -12,26 +12,29 @@ struct InterdayView: View {
     @State var showGraphView = false
 
     var body: some View {
-        NavigationView {
-            List {
-                Section(header: HeaderView(),
-                        footer: FooterView(footerLines: viewModel.interday.footer)) {
-                    ForEach(viewModel.interday.list, id: \.id) { line in
-                        RowView(line: line)
+        GeometryReader { geo in
+            NavigationView {
+                List {
+                    Section(header: HeaderView(),
+                            footer: FooterView(footerLines: viewModel.interday.footer))
+                    {
+                        ForEach(viewModel.interday.list) { line in
+                            RowView(line: line, geo: geo.size)
+                        }
                     }
                 }
+                .listStyle(GroupedListStyle())
+                .environment(\.defaultMinListRowHeight, 10)
+                .navigationBarTitle("Interday", displayMode: .inline)
+                .navigationBarItems(
+                    leading:
+                    Button(action: { showGraphView.toggle() })
+                        { Image(systemName: "chart.bar") }
+                )
             }
-            .listStyle(GroupedListStyle())
-            .environment(\.defaultMinListRowHeight, 10)
-            .navigationBarTitle("Interday", displayMode: .inline)
-            .navigationBarItems(
-                leading:
-                Button(action: { showGraphView.toggle() })
-                    { Image(systemName: "chart.bar") }
-            )
-        }
-        .sheet(isPresented: $showGraphView) {
-            InterGraphView()
+            .sheet(isPresented: $showGraphView) {
+                InterGraphView()
+            }
         }
     }
 }

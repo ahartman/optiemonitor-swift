@@ -10,6 +10,7 @@ import SwiftUI
 struct RowView: View {
     @Environment(\.verticalSizeClass) var sizeClass
     var line: TableLine
+    var geo = CGSize()
 
     var body: some View {
         HStack(spacing: 0) {
@@ -17,14 +18,14 @@ struct RowView: View {
                 .modifier(TextModifier())
             Text(line.callPriceText)
                 .modifier(TextModifier())
-            if sizeClass == .compact {
+            if geo.height < geo.width  {
                 Text(line.callDeltaText)
                     .modifier(TextModifier())
                     .foregroundColor(Color(line.callDeltaColor))
             }
             Text(line.putPriceText)
                 .modifier(TextModifier())
-            if sizeClass == .compact {
+            if geo.height < geo.width  {
                 Text(line.putDeltaText)
                     .modifier(TextModifier())
                     .foregroundColor(Color(line.putDeltaColor))

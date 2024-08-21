@@ -74,7 +74,7 @@ struct DisplayData {
     var grafiekWaarden = [GraphLine]()
     var grafiekAssen = [String: [Double]]()
 }
-struct TableLine {
+struct TableLine: Identifiable {
     var id: Int = 0
     var datetimeText: String = ""
     var callPriceText: String = ""

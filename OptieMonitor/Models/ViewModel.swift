@@ -187,7 +187,6 @@ import SwiftUI
         decoder.dateDecodingStrategy = .iso8601
         do {
             print("Fetching JsonData from: \(url)")
-            print("JSON1: \(dataStale)")
             let (data, _) = try await URLSession.shared.data(from: url)
             UserDefaults.standard.set(data, forKey: "OptieMonitor") // persist in UserDefaults
             let incomingData = try decoder.decode(IncomingData.self, from: data)

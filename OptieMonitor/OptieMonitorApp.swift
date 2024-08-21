@@ -45,7 +45,7 @@ struct OptieMonitorApp: App {
         .onChange(of: scenePhase) { old, phase in
             if phase == .active {
                 Task {
-                    print("from App: \(old), \(phase)")
+                    //print("From App: \(old), \(phase)")
                     await viewModel.getJsonData(action: "currentOrder")
                 }
             } else {
