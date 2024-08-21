@@ -12,7 +12,6 @@ var interFooter: [FooterLine] = []
 var caption: String = ""
 var quoteDatetime: Date? = nil
 var quoteDatetimeText: String = ""
-var dataStale: Bool = true
 var notificationSetStale: Bool = false
 
 // set data path
@@ -160,7 +159,7 @@ struct TextModifier: ViewModifier {
 }
 
 struct StaleModifier: ViewModifier {
-    @Environment(ViewModel.self) private var viewModel
+    var dataStale: Bool
     func body(content: Content) -> some View {
         return content
             .frame(minWidth: 0, maxWidth: .infinity)

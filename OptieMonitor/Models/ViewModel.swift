@@ -15,6 +15,7 @@ import SwiftUI
     var intradayIndex = [GraphLine]()
     var interdayGraph = [GraphLine]()
     var isMessage: Bool = false
+    var dataStale: Bool = true
     var notificationSet = NotificationSetting()
     { didSet {
         notificationSetStale = true
@@ -40,8 +41,9 @@ import SwiftUI
 
     func formatDate(dateIn: Date) -> String {
         let formatter = DateFormatter()
-        let dateMidnight = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())
-        formatter.dateFormat = (dateIn < dateMidnight!) ? "dd-MM" : "HH:mm"
+        // let dateMidnight = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())
+        // formatter.dateFormat = (dateIn < dateMidnight!) ? "dd-MM" : "HH:mm"
+        formatter.dateFormat = Calendar.current.isDateInToday(dateIn) ? "dd-MM" : "HH:mm"
         return formatter.string(for: dateIn)!
     }
 
@@ -179,13 +181,13 @@ import SwiftUI
     }
 
     func getJsonData(action: String) async {
-        dataStale = true
         isMessage = false
         let url = URL(string: dataURL + action)!
-        print("Fetching JsonData from: \(url)")
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         do {
+            print("Fetching JsonData from: \(url)")
+            print("JSON1: \(dataStale)")
             let (data, _) = try await URLSession.shared.data(from: url)
             UserDefaults.standard.set(data, forKey: "OptieMonitor") // persist in UserDefaults
             let incomingData = try decoder.decode(IncomingData.self, from: data)

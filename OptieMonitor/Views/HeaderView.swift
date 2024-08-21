@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct HeaderView: View {
+    @Environment(ViewModel.self) private var viewModel
     @Environment(\.verticalSizeClass) var sizeClass
+    var dataStale: Bool = false
 
     var body: some View {
         VStack {
-            Text("\(caption)")
-                .modifier(StaleModifier())
-                .padding(.bottom)
+            if UIDevice.current.userInterfaceIdiom != .pad {
+                Text("\(caption)")
+                    .modifier(StaleModifier(dataStale: dataStale))
+                    .padding(.bottom)
+            }
             HStack {
                 Text("\(quoteDatetimeText)")
                     .modifier(TextModifier())

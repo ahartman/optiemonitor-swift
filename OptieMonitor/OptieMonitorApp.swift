@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct OptieMonitorApp: App {
     @State private var viewModel = ViewModel()
+    @Environment(\.scenePhase) var scenePhase
 
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     @StateObject var notificationCenter = NotificationCenter()
@@ -39,6 +40,16 @@ struct OptieMonitorApp: App {
                         }
                 }
                 .environment(viewModel)
+            }
+        }
+        .onChange(of: scenePhase) { old, phase in
+            if phase == .active {
+                Task {
+                    print("from App: \(old), \(phase)")
+                    await viewModel.getJsonData(action: "currentOrder")
+                }
+            } else {
+                print("ScenePhase: \(phase)")
             }
         }
     }

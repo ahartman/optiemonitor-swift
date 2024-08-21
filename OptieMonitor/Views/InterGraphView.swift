@@ -37,6 +37,7 @@ struct InterChartView: View {
                 )
                 .foregroundStyle(by: .value("Type Color", element.type))
             }
+            /*
             ForEach(viewModel.interday.grafiekWaarden.filter { $0.type == "Index" }, id: \.self) { element in
                 LineMark(
                     x: .value("Uur", element.datumTijd),
@@ -44,7 +45,10 @@ struct InterChartView: View {
                 )
                 .foregroundStyle(by: .value("Type Color", element.type))
             }
+             */
         }
+        .padding(20)
+        .background(.white)
         .chartXAxis {
             AxisMarks(values: xValues()) { _ in
                 AxisGridLine()
@@ -58,21 +62,25 @@ struct InterChartView: View {
                 AxisGridLine()
                 AxisValueLabel(format: .currency(code: "EUR").precision(.fractionLength(0)))
             }
+            /*
             AxisMarks(preset: .aligned, position: .trailing, values: viewModel.interday.grafiekAssen["Index"] ?? [0.0]) { _ in
                 AxisGridLine()
                 AxisValueLabel()
             }
+             */
         }
         .chartYAxisLabel("Waarde in €", position: .leading)
 
         .chartForegroundStyleScale(
-            ["Call": .green, "Put": .purple, "Index": .black]
+            ["Call": .green, "Put": .purple /*, "Index": .black */]
         )
     }
 
     @MainActor
     func xValues() -> [Date] {
-        return viewModel.interday.grafiekWaarden.filter { $0.type == "Index" }.map { $0.datumTijd }
+        return viewModel.interday.grafiekWaarden
+            .filter { $0.type == "Index" }
+            .map { $0.datumTijd }
     }
 
     func xValue(value: Date) -> String {

@@ -10,13 +10,12 @@ import SwiftUI
 struct IntradayView: View {
     @Bindable var viewModel: ViewModel
     @State private var showGraphSheet = false
-    @Environment(\.scenePhase) var scenePhase
 
     var body: some View {
         NavigationView {
             List {
                 Section(
-                    header: HeaderView(),
+                    header: HeaderView(dataStale: viewModel.dataStale),
                     footer: FooterView(footerLines: viewModel.intraday.footer)
                 ) { ForEach(viewModel.intraday.list, id: \.id) {
                     line in
@@ -41,17 +40,7 @@ struct IntradayView: View {
                 await viewModel.getJsonData(action: "currentOrder")
             }
         }
-        .onChange(of: scenePhase) { _, phase in
-            if phase == .active {
-                Task {
-                    print("from IntradayView")
-                    await viewModel.getJsonData(action: "currentOrder")
-                }
-            } else {
-                print("ScenePhase: \(phase)")
-            }
-        }
-        .alert(isPresented: $viewModel.isMessage) {
+       .alert(isPresented: $viewModel.isMessage) {
             Alert(title: Text("AEX"),
                   message: Text(viewModel.message ?? ""),
                   dismissButton: .default(Text("OK")))
@@ -61,12 +50,3 @@ struct IntradayView: View {
         }
     }
 }
-
-/*
- struct IntradayView_Previews: PreviewProvider {
- static let viewModel = ViewModel()
- static var previews: some View {
- IntradayView().environmentObject(viewModel)
- }
- }
- */
