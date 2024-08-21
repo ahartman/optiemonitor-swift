@@ -26,19 +26,6 @@ import SwiftUI
         if message != nil { isMessage = true }
     }}
 
-    init() {
-        if let data = UserDefaults.standard.data(forKey: "OptieMonitor") {
-            do {
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                let savedData = try decoder.decode(IncomingData.self, from: data)
-                unpackJSON(result: savedData)
-            } catch {
-                print("JSON error from UserDefaults:", error)
-            }
-        }
-    }
-
     func formatDate(dateIn: Date) -> String {
         let formatter = DateFormatter()
         // let dateMidnight = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())

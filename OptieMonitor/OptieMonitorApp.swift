@@ -16,6 +16,19 @@ struct OptieMonitorApp: App {
     @StateObject var notificationCenter = NotificationCenter()
     @StateObject var localNotification = LocalNotification()
 
+    init() {
+        if let data = UserDefaults.standard.data(forKey: "OptieMonitor") {
+            do {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                let savedData = try decoder.decode(IncomingData.self, from: data)
+                viewModel.unpackJSON(result: savedData)
+            } catch {
+                print("JSON error from UserDefaults:", error)
+            }
+        }
+    }
+
     var body: some Scene {
         WindowGroup {
             if UIDevice.current.userInterfaceIdiom == .pad {
