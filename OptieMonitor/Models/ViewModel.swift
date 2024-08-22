@@ -168,6 +168,7 @@ import SwiftUI
     }
 
     func getJsonData(action: String) async {
+        dataStale = true
         isMessage = false
         let url = URL(string: dataURL + action)!
         let decoder = JSONDecoder()

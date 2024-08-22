@@ -13,9 +13,16 @@ struct iPadView: View {
     var body: some View {
         GeometryReader { geo in
             VStack {
-                Text("\(caption)")
-                    .modifier(StaleModifier(dataStale: viewModel.dataStale))
-                    .padding([.bottom, .top])
+                HStack {
+                    Button(action: {
+                        Task { await viewModel.getJsonData(action: "cleanOrder") }
+                    }) { Image(systemName: "arrow.clockwise") }
+                        .frame(alignment: .leading)
+                        .padding(.leading)
+                   Text("\(caption)")
+                        .modifier(StaleModifier(dataStale: viewModel.dataStale))
+                        .frame(alignment: .center)
+               }
                 Divider()
                 HStack {
                     List {
@@ -44,12 +51,15 @@ struct iPadView: View {
                 Divider()
                 HStack {
                     IntraChartView()
+                        .cornerRadius(10.0)
+                        .padding(16)
+                        .background(Color(.systemGroupedBackground))
                     Divider()
                     InterChartView()
+                        .cornerRadius(10.0)
+                        .padding(16)
+                        .background(Color(.systemGroupedBackground))
                 }
-                .cornerRadius(10.0)
-                .padding(20)
-                .background(Color(.systemGroupedBackground))
             }
         }
     }

@@ -163,7 +163,7 @@ struct StaleModifier: ViewModifier {
     func body(content: Content) -> some View {
         return content
             .frame(minWidth: 0, maxWidth: .infinity)
-            .foregroundColor(dataStale ? .red : .secondary)
+            .foregroundColor(dataStale ? .blue : .secondary)
             .font(.footnote.weight(dataStale ? .bold : .regular))
     }
 }
