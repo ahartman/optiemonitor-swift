@@ -29,8 +29,11 @@ struct InterChartView: View {
     @Environment(ViewModel.self) private var viewModel
 
     var body: some View {
+        let grafiekWaarden = viewModel.interday.grafiekWaarden.filter { $0.type != "Index" }
+        let rulers: [Double] = yRulers(grafiekWaarden: grafiekWaarden)
+
         Chart {
-            ForEach(viewModel.interday.grafiekWaarden.filter { $0.type != "Index" }, id: \.self) { element in
+            ForEach(grafiekWaarden, id: \.self) { element in
                 BarMark(
                     x: .value("Datum", element.datumTijd),
                     y: .value("Waarde in €", element.waarde)
@@ -38,14 +41,18 @@ struct InterChartView: View {
                 .foregroundStyle(by: .value("Type Color", element.type))
             }
             /*
-            ForEach(viewModel.interday.grafiekWaarden.filter { $0.type == "Index" }, id: \.self) { element in
-                LineMark(
-                    x: .value("Uur", element.datumTijd),
-                    y: .value("Index", element.waarde)
-                )
-                .foregroundStyle(by: .value("Type Color", element.type))
+             ForEach(viewModel.interday.grafiekWaarden.filter { $0.type == "Index" }, id: \.self) { element in
+                 LineMark(
+                     x: .value("Uur", element.datumTijd),
+                     y: .value("Index", element.waarde)
+                 )
+                 .foregroundStyle(by: .value("Type Color", element.type))
+             }
+              */
+            ForEach(rulers, id: \.self) { ruler in
+                RuleMark(y: .value("rulers", ruler))
+                    .foregroundStyle(.red)
             }
-             */
         }
         .padding(20)
         .background(.white)
@@ -63,16 +70,16 @@ struct InterChartView: View {
                 AxisValueLabel(format: .currency(code: "EUR").precision(.fractionLength(0)))
             }
             /*
-            AxisMarks(preset: .aligned, position: .trailing, values: viewModel.interday.grafiekAssen["Index"] ?? [0.0]) { _ in
-                AxisGridLine()
-                AxisValueLabel()
-            }
-             */
+             AxisMarks(preset: .aligned, position: .trailing, values: viewModel.interday.grafiekAssen["Index"] ?? [0.0]) { _ in
+                 AxisGridLine()
+                 AxisValueLabel()
+             }
+              */
         }
         .chartYAxisLabel("Waarde in €", position: .leading)
 
         .chartForegroundStyleScale(
-            ["Call": .green, "Put": .purple /*, "Index": .black */]
+            ["Call": .green, "Put": .purple /* , "Index": .black */ ]
         )
     }
 
@@ -91,5 +98,11 @@ struct InterChartView: View {
         // let d2 = d1.map({formatter.string(from: $0.datumTijd)})
         let d2 = formatter.string(from: value)
         return d2
+    }
+
+    func yRulers(grafiekWaarden: [GraphLine]) -> [Double] {
+        let arrays = Array(Dictionary(grouping: grafiekWaarden, by: { $0.datumTijd }).values)
+        let yMax = arrays.map { $0[0].waarde + $0[1].waarde }.max()!
+        return [yMax * 0.5, yMax * 0.25]
     }
 }

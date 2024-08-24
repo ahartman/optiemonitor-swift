@@ -19,6 +19,7 @@ struct iPadView: View {
                     }) { Image(systemName: "arrow.clockwise") }
                         .frame(alignment: .leading)
                         .padding(.leading)
+                        .foregroundColor(.black)
                    Text("\(caption)")
                         .modifier(StaleModifier(dataStale: viewModel.dataStale))
                         .frame(alignment: .center)

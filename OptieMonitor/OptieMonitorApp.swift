@@ -13,8 +13,8 @@ struct OptieMonitorApp: App {
     @Environment(\.scenePhase) var scenePhase
 
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    @StateObject var notificationCenter = NotificationCenter()
-    @StateObject var localNotification = LocalNotification()
+    @State var notificationCenter = NotificationCenter()
+    @State var localNotification = LocalNotification()
 
     init() {
         if let data = UserDefaults.standard.data(forKey: "OptieMonitor") {
@@ -58,7 +58,6 @@ struct OptieMonitorApp: App {
         .onChange(of: scenePhase) { old, phase in
             if phase == .active {
                 Task {
-                    //print("From App: \(old), \(phase)")
                     await viewModel.getJsonData(action: "currentOrder")
                 }
             } else {
@@ -84,7 +83,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     // No callback in simulator -- must use device to get valid push token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let deviceTokenString = deviceToken.reduce("") { $0 + String(format: "%02X", $1) }
-        print("Registering deviceTokenString: \(deviceTokenString)")
+        //print("Registering deviceTokenString: \(deviceTokenString)")
         let jsonObject: [String: String] = ["deviceToken": deviceTokenString]
         Task {
             await ViewModel().postJSONData(jsonObject, action: "apns")
@@ -96,7 +95,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        print("enter foreground")
+        print("Enter foreground")
     }
 }
 
