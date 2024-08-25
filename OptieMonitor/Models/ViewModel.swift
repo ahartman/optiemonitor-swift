@@ -74,6 +74,7 @@ import SwiftUI
             "Euro": Array(stride(from: yMin, through: yMax, by: rounding)),
             "Index": Array(stride(from: 0, through: indexMax, by: 100.0))
         ]
+
         return (localGraphLines, localyValues)
     }
 

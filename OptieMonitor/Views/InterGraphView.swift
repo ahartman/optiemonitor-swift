@@ -30,7 +30,7 @@ struct InterChartView: View {
 
     var body: some View {
         let grafiekWaarden = viewModel.interday.grafiekWaarden.filter { $0.type != "Index" }
-        let rulers: [Double] = yRulers(grafiekWaarden: grafiekWaarden)
+        let rulers: [[Double]] = yRulers(grafiekWaarden: grafiekWaarden)
 
         Chart {
             ForEach(grafiekWaarden, id: \.self) { element in
@@ -50,8 +50,19 @@ struct InterChartView: View {
              }
               */
             ForEach(rulers, id: \.self) { ruler in
-                RuleMark(y: .value("rulers", ruler))
+                RuleMark(y: .value("rulers", ruler[0]))
                     .foregroundStyle(.red)
+                    .lineStyle(StrokeStyle(lineWidth: 1))
+                    .annotation(
+                        position: .topTrailing,
+                        overflowResolution: .init(x: .fit, y: .disabled)
+                    ) {
+                        ZStack {
+                            Text("\(ruler[1].formatted(.percent.precision(.fractionLength(0))))")
+                                .font(.footnote)
+                                .foregroundStyle(.red)
+                        }
+                    }
             }
         }
         .padding(20)
@@ -100,9 +111,9 @@ struct InterChartView: View {
         return d2
     }
 
-    func yRulers(grafiekWaarden: [GraphLine]) -> [Double] {
+    func yRulers(grafiekWaarden: [GraphLine]) -> [[Double]] {
         let arrays = Array(Dictionary(grouping: grafiekWaarden, by: { $0.datumTijd }).values)
         let yMax = arrays.map { $0[0].waarde + $0[1].waarde }.max()!
-        return [yMax * 0.5, yMax * 0.25]
+        return [[yMax * 0.5, 0.5], [yMax * 0.25, 0.25]]
     }
 }
