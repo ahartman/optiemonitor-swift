@@ -15,11 +15,11 @@ struct InterdayView: View {
         GeometryReader { geo in
             NavigationView {
                 List {
-                    Section(header: HeaderView(),
-                            footer: FooterView(footerLines: viewModel.interday.footer))
+                    Section(header: HeaderView(geo: geo.size),
+                            footer: FooterView(geo: geo.size, footerLines: viewModel.interday.footer))
                     {
                         ForEach(viewModel.interday.list) { line in
-                            RowView(line: line, geo: geo.size)
+                            RowView(geo: geo.size, line: line)
                         }
                     }
                 }

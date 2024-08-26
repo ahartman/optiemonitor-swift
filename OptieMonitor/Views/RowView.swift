@@ -9,8 +9,8 @@ import SwiftUI
 
 struct RowView: View {
     @Environment(\.verticalSizeClass) var sizeClass
-    var line: TableLine
     var geo = CGSize()
+    var line: TableLine
 
     var body: some View {
         HStack(spacing: 0) {

@@ -28,22 +28,22 @@ struct iPadView: View {
                 HStack {
                     List {
                         Section(
-                            header: HeaderView(dataStale: viewModel.dataStale),
-                            footer: FooterView(footerLines: viewModel.intraday.footer))
+                            header: HeaderView(geo: geo.size, dataStale: viewModel.dataStale),
+                            footer: FooterView(geo: geo.size, footerLines: viewModel.intraday.footer))
                         {
                             ForEach(viewModel.intraday.list, id: \.id) {
                                 line in
-                                RowView(line: line, geo: geo.size)
+                                RowView(geo: geo.size, line: line)
                             }
                         }
                     }
                     Divider()
                     List {
-                        Section(header: HeaderView(dataStale: viewModel.dataStale),
-                                footer: FooterView(footerLines: viewModel.interday.footer))
+                        Section(header: HeaderView(geo: geo.size, dataStale: viewModel.dataStale),
+                                footer: FooterView(geo: geo.size, footerLines: viewModel.interday.footer))
                         {
                             ForEach(viewModel.interday.list, id: \.id) { line in
-                                RowView(line: line, geo: geo.size)
+                                RowView(geo: geo.size, line: line)
                             }
                         }
                     }

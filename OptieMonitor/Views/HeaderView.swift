@@ -10,6 +10,7 @@ import SwiftUI
 struct HeaderView: View {
     @Environment(ViewModel.self) private var viewModel
     @Environment(\.verticalSizeClass) var sizeClass
+    var geo: CGSize
     var dataStale: Bool = false
 
     var body: some View {
@@ -24,14 +25,14 @@ struct HeaderView: View {
                     .modifier(TextModifier())
                 Text("Call")
                     .modifier(TextModifier())
-                if sizeClass == .compact {
+                if geo.height < geo.width  {
                     Text("∂")
                         .modifier(TextModifier())
                 }
                 Text("Put")
                     .modifier(TextModifier())
-                if sizeClass == .compact {
-                    Text("∂")
+                if geo.height < geo.width  {
+                   Text("∂")
                         .modifier(TextModifier())
                 }
                 Text("€")
