@@ -38,7 +38,7 @@ import SwiftUI
         var localGraphLines = [GraphLine]()
         var yMin = 0.0
         var yMax = 0.0
-        let rounding = (sender == "intra") ? 250.0 : 1000.0
+        let rounding = (sender == "intra") ? 100.0 : 1000.0
         let firstCallValue = (sender == "intra") ? lines[0].callValue : 0
         let firstPutValue = (sender == "intra") ? lines[0].putValue : 0
 

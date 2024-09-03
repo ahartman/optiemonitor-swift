@@ -52,7 +52,7 @@ struct InterChartView: View {
             ForEach(rulers, id: \.self) { ruler in
                 RuleMark(y: .value("rulers", ruler[0]))
                     .foregroundStyle(.red)
-                    .lineStyle(StrokeStyle(lineWidth: 1))
+                    .lineStyle(StrokeStyle(lineWidth: 0.5))
                     .annotation(
                         position: .topTrailing,
                         overflowResolution: .init(x: .fit, y: .disabled)
