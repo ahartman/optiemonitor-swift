@@ -15,7 +15,7 @@ struct HeaderView: View {
 
     var body: some View {
         VStack {
-            if UIDevice.current.userInterfaceIdiom != .pad {
+            if UIDevice.current.userInterfaceIdiom == .pad {
                 Text("\(caption)")
                     .modifier(StaleModifier(dataStale: dataStale))
                     .padding(.bottom)

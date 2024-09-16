@@ -28,8 +28,6 @@ import SwiftUI
 
     func formatDate(dateIn: Date) -> String {
         let formatter = DateFormatter()
-        // let dateMidnight = Calendar.current.date(bySettingHour: 0, minute: 0, second: 0, of: Date())
-        // formatter.dateFormat = (dateIn < dateMidnight!) ? "dd-MM" : "HH:mm"
         formatter.dateFormat = Calendar.current.isDateInToday(dateIn) ? "dd-MM" : "HH:mm"
         return formatter.string(for: dateIn)!
     }
