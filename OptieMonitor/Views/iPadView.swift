@@ -29,7 +29,7 @@ struct iPadView: View {
                     List {
                         Section(
                             header: HeaderView(geo: geo.size, dataStale: viewModel.dataStale),
-                            footer: FooterView(geo: geo.size, footerLines: viewModel.intraday.footer))
+                            footer: FooterView(geo: geo.size, footerLines: Array(arrayLiteral: viewModel.intraday.footer[0])))
                         {
                             ForEach(viewModel.intraday.list, id: \.id) {
                                 line in

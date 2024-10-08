@@ -85,7 +85,7 @@ import SwiftUI
         let tempFirst = (firstLine!.callValue + firstLine!.putValue) * firstLine!.nrContracts
 
         footer.append(FooterLine(
-            label: sender == "intra" ? "Nu" : "",
+            label: sender == "intra" ? "Nu" : "Order",
             callPercent: Formatter.percentage.string(for: (lastLine!.callValue/firstLine!.callValue) - 1)!,
             putPercent: Formatter.percentage.string(for: (lastLine!.putValue/firstLine!.putValue) - 1)!,
             orderPercent: Formatter.percentage.string(for: (tempLast/tempFirst) - 1)!,

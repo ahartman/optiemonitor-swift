@@ -94,26 +94,14 @@ struct InterChartView: View {
         )
     }
 
-    @MainActor
     func xValues() -> [Date] {
         return viewModel.interday.grafiekWaarden
             .filter { $0.type == "Index" }
             .map { $0.datumTijd }
     }
 
-    func xValue(value: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "nl")
-        formatter.setLocalizedDateFormatFromTemplate("d-M")
-        // let d1 = model.interday.grafiekWaarden.filter({$0.type == "Index"}).map({$0.datumTijd})
-        // let d2 = d1.map({formatter.string(from: $0.datumTijd)})
-        let d2 = formatter.string(from: value)
-        return d2
-    }
-
     func yRulers(grafiekWaarden: [GraphLine]) -> [[Double]] {
-        let arrays = Array(Dictionary(grouping: grafiekWaarden, by: { $0.datumTijd }).values)
-        let yMax = arrays.map { $0[0].waarde + $0[1].waarde }.max()!
-        return [[yMax * 0.5, 0.5], [yMax * 0.25, 0.25]]
+        let yMax = grafiekWaarden[0].waarde + grafiekWaarden[1].waarde
+        return [[yMax, 1], [yMax * 0.5, 0.5], [yMax * 0.25, 0.25]]
     }
 }
