@@ -213,30 +213,26 @@ import SwiftUI
         quoteDatetimeText = formatDate(dateIn: result.datetime)
     }
 
-    func syncJsonData(action: String) {
-        Task {
-            print("syncJsonData")
-            await getJsonData(action: "currentOrder")
-        }
-    }
-
     func getJsonData(action: String) async {
-        print("getJSDN")
         dataStale = true
         isMessage = false
         let url = URL(string: dataURL + action)!
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         do {
-            print("Fetching JsonData from: \(url)")
+            //print("Fetching JsonData from: \(url)")
             let (data, _) = try await URLSession.shared.data(from: url)
-            UserDefaults.standard.set(data, forKey: "OptieMonitor")  // persist in UserDefaults
             let incomingData = try decoder.decode(IncomingData.self, from: data)
             unpackJSON(result: incomingData)
+            if !intraday.list.isEmpty {
+                UserDefaults.standard.set(data, forKey: "OptieMonitor")  // persist in UserDefaults
+            } else {
+                print("Empty JSON fetch")
+            }
             dataStale = false
             notificationSetStale = false
         } catch {
-            print("Failed to fetch")
+            print("Failed to fetch JSON")
         }
     }
 

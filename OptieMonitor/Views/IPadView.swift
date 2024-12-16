@@ -15,40 +15,47 @@ struct IPadView: View {
             VStack {
                 HStack {
                     Button(action: {
-                        Task { await viewModel.getJsonData(action: "cleanOrder") }
+                        Task {
+                            await viewModel.getJsonData(action: "cleanOrder")
+                        }
                     }) { Image(systemName: "arrow.clockwise") }
-                        .frame(alignment: .leading)
-                        .padding(.leading)
-                        .foregroundColor(.black)
-                   Text("\(caption)")
+                    .frame(alignment: .leading)
+                    .padding(.leading)
+                    .foregroundColor(.black)
+                    Text("\(caption)")
                         .modifier(StaleModifier(dataStale: viewModel.dataStale))
                         .frame(alignment: .center)
-               }
+                }
                 Divider()
                 HStack {
                     List {
                         Section(
-                            header: HeaderView(geo: geo.size, dataStale: viewModel.dataStale),
-                            footer: FooterView(geo: geo.size, footerLines: Array(arrayLiteral: viewModel.intraday.footer[0])))
-                        {
+                            header: HeaderView(
+                                geo: geo.size, dataStale: viewModel.dataStale),
+                            footer: FooterView(
+                                geo: geo.size,
+                                footerLines: viewModel.intraday.footer)
+                        ) {
                             ForEach(viewModel.intraday.list, id: \.id) {
-                                line in
-                                RowView(geo: geo.size, line: line)
+                                line in RowView(geo: geo.size, line: line)
                             }
                         }
                     }
                     Divider()
                     List {
-                        Section(header: HeaderView(geo: geo.size, dataStale: viewModel.dataStale),
-                                footer: FooterView(geo: geo.size, footerLines: viewModel.interday.footer))
-                        {
+                        Section(
+                            header: HeaderView(
+                                geo: geo.size, dataStale: viewModel.dataStale),
+                            footer: FooterView(
+                                geo: geo.size,
+                                footerLines: viewModel.interday.footer)
+                        ) {
                             ForEach(viewModel.interday.list, id: \.id) { line in
                                 RowView(geo: geo.size, line: line)
                             }
                         }
                     }
                 }
-                .environment(\.defaultMinListRowHeight, 10)
                 Divider()
                 HStack {
                     IntraChartView()

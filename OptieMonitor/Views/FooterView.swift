@@ -1,5 +1,5 @@
 //
-//  FooterView2.swift
+//  FooterView.swift
 //  OptieMonitor
 //
 //  Created by André Hartman on 04/06/2021.
