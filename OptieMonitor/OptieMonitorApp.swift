@@ -17,8 +17,11 @@ struct OptieMonitorApp: App {
     @State var localNotification = LocalNotification()
 
     init() {
+        viewModel.syncJsonData(action: "currentOrder")
+        let defaults = UserDefaults()
+        defaults.removeObject(forKey: "OptieMonitor")
         if let data = UserDefaults.standard.data(forKey: "OptieMonitor") {
-            do {
+           do {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
                 let savedData = try decoder.decode(IncomingData.self, from: data)
@@ -32,7 +35,7 @@ struct OptieMonitorApp: App {
     var body: some Scene {
         WindowGroup {
             if UIDevice.current.userInterfaceIdiom == .pad {
-                iPadView(viewModel: viewModel)
+                IPadView(viewModel: viewModel)
                     .environment(viewModel)
             } else {
                 TabView {
@@ -58,6 +61,7 @@ struct OptieMonitorApp: App {
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active {
                 Task {
+                    print("getCurrent")
                     await viewModel.getJsonData(action: "currentOrder")
                 }
             } else {

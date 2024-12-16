@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct iPadView: View {
+struct IPadView: View {
     @Bindable var viewModel: ViewModel
 
     var body: some View {
