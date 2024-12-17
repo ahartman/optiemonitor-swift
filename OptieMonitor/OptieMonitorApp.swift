@@ -40,7 +40,7 @@ struct OptieMonitorApp: App {
                     systemImage: "icloud.and.arrow.down"
                 )
             } else {
-                if UIDevice.current.userInterfaceIdiom == .pad {
+                if Ipad {
                     IPadView(viewModel: viewModel)
                         .environment(viewModel)
                 } else {

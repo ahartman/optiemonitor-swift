@@ -108,11 +108,11 @@
 				E830056825480CB500B2CA56 /* InterdayView.swift */,
 				E8434412297A7C4F00929E17 /* IntraGraphView.swift */,
 				E830056725480CB500B2CA56 /* InterGraphView.swift */,
+				E8A7F6482C72098500F3F587 /* IPadView.swift */,
 				E830056525480CB500B2CA56 /* HeaderView.swift */,
 				E830056925480CB500B2CA56 /* RowView.swift */,
 				E8B66D64266A067C00C071CE /* FooterView.swift */,
 				E830056A25480CB500B2CA56 /* SettingsView.swift */,
-				E8A7F6482C72098500F3F587 /* IPadView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

@@ -13,6 +13,7 @@ var caption: String = ""
 var quoteDatetime: Date? = nil
 var quoteDatetimeText: String = ""
 var notificationSetStale: Bool = false
+var Ipad: Bool = UIDevice.current.userInterfaceIdiom == .pad
 
 // set data path
 #if targetEnvironment(simulator)

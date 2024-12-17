@@ -14,7 +14,7 @@ struct FooterView: View {
     var body: some View {
         VStack {
             FooterRowView(footerLine: footerLines[0], geo: geo)
-            if footerLines.count > 1 {
+            if !Ipad {
                 Divider()
                 FooterRowView(footerLine: footerLines[1], geo: geo)
             }
